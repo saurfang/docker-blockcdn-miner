@@ -11,10 +11,10 @@ Run the [BlockCDN Miner](https://github.com/Blockcdnteam/Minner) in a Docker con
 BlockerCDN miner serves the CDN and collect mining rewards.
 
 ```sh
-docker run -d --restart=always -e MINER_CODE='<your mining code>' --name blockcdn-miner saurfang/blockcdn-miner
+docker run -d --restart=always -e MINER_CODE='your_mining_code' --name blockcdn-miner saurfang/blockcdn-miner
 ```
 
-Note you need to fill in your miner code in order for the miner to register with the network.
+Note you need to fill in your miner code in order for the miner to register with the network. On Windows, you likely need to drop single quote as well.
 
 `restart` is recommended as `bcdn` exits upon network disruption or unstableness, which brings down the container.
 
@@ -42,4 +42,4 @@ associate it with a volume so data can be persisted and the space can be properl
 1. Follow Prerequisites above.
 2. Checkout source: `git clone https://github.com/saurfang/docker-blockcdn-miner.git && cd docker-blockcdn-miner`
 3. Build container: `docker build -t $(whoami)/blockcdn-miner .`
-4. Run container: `docker run -d -e MINER_CIDE='[your miner code]' $(whoami)/blockcdn-miner`
+4. Run container: `docker run -d -e MINER_CIDE='your_miner_code]' $(whoami)/blockcdn-miner`

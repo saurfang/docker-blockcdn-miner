@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# cd to script directory
+dir=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
+
+# set miner code if present
+if [[ -v MINER_CODE ]]; then
+  echo 'Setting miner code from environment variable...'
+  echo ${MINER_CODE} > conf/code.txt
+fi
+
+# start miner
+chmod a+x bcdn
+chmod a+x bin/*
+./bcdn

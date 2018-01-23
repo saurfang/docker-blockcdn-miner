@@ -1,6 +1,5 @@
 FROM ubuntu:16.04
 
-
 RUN apt-get update && apt-get install -y \
         software-properties-common \
         python-software-properties \
@@ -36,7 +35,9 @@ RUN curl -SOL https://github.com/libevent/libevent/releases/download/release-${L
   ./autogen.sh && \
   ./configure --prefix=/usr && \
   make && \
-  make install
+  make install && \
+  cd .. && \
+  rm -rf libevent-${LIBEVENT_VERSION}
 
 
 # Install protobuf (protoc)
@@ -46,13 +47,15 @@ RUN curl -SOL https://github.com/google/protobuf/releases/download/v${PROTOBUF_V
   unzip protoc-${PROTOBUF_VERSION}-linux-x86_64.zip -d protoc3 && \
   mv protoc3/bin/* /usr/local/bin/ && \
   mv protoc3/include/* /usr/local/include/ && \
+  rm -rf protoc3 protoc-${PROTOBUF_VERSION}-linux-x86_64.zip && \
   protoc --version
 
 
 # Download miner
 RUN curl -SOL https://github.com/Blockcdnteam/Minner/releases/download/v1.0/M_BerryMiner_Ubuntu.zip && \
   unzip M_BerryMiner_Ubuntu.zip && \
-  mv M_BerryMiner_Ubuntu/M_BerryMiner_ubuntu_v1_0/server /usr/local/m_berry_miner
+  mv M_BerryMiner_Ubuntu/M_BerryMiner_ubuntu_v1_0/server /usr/local/m_berry_miner && \
+  rm -rf M_BerryMiner_Ubuntu.zip  M_BerryMiner_Ubuntu
 
 # Setup miner startup script
 WORKDIR /usr/local/m_berry_miner

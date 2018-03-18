@@ -52,13 +52,17 @@ RUN curl -SOL https://github.com/google/protobuf/releases/download/v${PROTOBUF_V
 
 
 # Download miner
-RUN curl -SOL https://github.com/Blockcdnteam/Minner/releases/download/v1.0/M_BerryMiner_Ubuntu.zip && \
-  unzip M_BerryMiner_Ubuntu.zip && \
-  mv M_BerryMiner_Ubuntu/M_BerryMiner_ubuntu_v1_0/server /usr/local/m_berry_miner && \
-  rm -rf M_BerryMiner_Ubuntu.zip  M_BerryMiner_Ubuntu
+ENV MINER_BASE /usr/local/m_berry_miner
+ENV MINER_BASE_URL https://dl.blockcdn.org/dev/
+ENV MINER_FILE 2018-03-09-v0.1.1-100.amd64.tar.gz
+
+RUN mkdir ${MINER_BASE} && \
+  curl -SOL ${MINER_BASE_URL}${MINER_FILE} && \
+  tar -xxvf ${MINER_FILE} -C ${MINER_BASE} && \
+  rm -rf ${MINER_FILE}
 
 # Setup miner startup script
-WORKDIR /usr/local/m_berry_miner
+WORKDIR ${MINER_BASE}
 
 COPY start_bcdn .
 

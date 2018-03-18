@@ -10,6 +10,6 @@ if [[ -v MINER_CODE ]]; then
 fi
 
 # start miner
-chmod a+x bcdn
 chmod a+x bin/*
-./bcdn
+chmod a+x script/*
+./script/monitor.sh
